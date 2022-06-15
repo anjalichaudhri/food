@@ -1,3 +1,11 @@
+/* here * means get every element and apply specified css*/
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +13,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* add the magrin left and right  to squeeze everything*/
+  margin: 0% 5%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h4 {
+  /* i rem = 16px*/
+  font-size: 1rem;
+  color: rgb(56, 56, 56);
+}
+
+h3 {
+  /* i rem = 16px*/
+  font-size: 1.5rem;
+  color: rgb(56, 56, 56);
+  line-height: 2.5 rem;
+  margin: 2rem 0rem;
+}
+
+a {
+  color: rgb(56, 56, 56);
 }
