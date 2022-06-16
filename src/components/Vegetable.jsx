@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 // make a couple of components that are specific for styling
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import '@splidejs/splide/css';
+import "@splidejs/splide/css";
+
+
 export const Vegetable = () => {
   //first -variable , second - function that allows you to modify it. third - initial state ie kind of date '' or {} or [].
   const [veggie, setVeggie] = useState([]);
@@ -17,61 +20,58 @@ export const Vegetable = () => {
   const getVeggie = async () => {
     // const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=9`);
     //store fetched value in local storage : in local storage can only store strings so to convert json data into object- parse it
-    const isExist = localStorage.getItem('veggie');
-    if(isExist){
+    const isExist = localStorage.getItem("veggie");
+    if (isExist) {
       setVeggie(JSON.parse(isExist));
-    }
-    else{
+    } else {
       const api = await fetch(
         `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=9&tags=vegetarian`
       );
-  
+
       const data = await api.json();
       // we are just loggingthe data here- to save it use state. Essentially it is just a variable that holds
       // the inforamtion but the advantage is that when data chages in the varaible ui reacts to it.
       // import use state
       console.log(data);
       // can only store strings in local storage so stringify the objects.
-      localStorage.setItem('veggie', JSON.stringify(data.recipes));
+      localStorage.setItem("veggie", JSON.stringify(data.recipes));
       setVeggie(data.recipes);
     }
-    
   };
 
-  
+  return (
+    //looping through each object of array and return jsx
+
+    <Wrapper>
+      <h3>Vegetarian Picks</h3>
+      {/* to add more than element per page in carousel */}
+      <Splide
+        options={{
+          perPage: 3,
+          height: "25rem",
+          arrows: false,
+          pagination: false,
+          drag: true,
+          gap: "5rem",
+        }}
+      >
+        {veggie.map((recipe) => {
           return (
-            //looping through each object of array and return jsx
-
-            <Wrapper>
-              <h3>Vegetarian Picks</h3>
-              {/* to add more than element per page in carousel */}
-              <Splide options= {{
-                  perPage : 3,
-                  height: "25rem",
-                  arrows: false,
-                  pagination: false,
-                  drag:true,
-                  gap: "5rem"
-
-              }}>
-              {veggie.map((recipe) => {
-                return (
-                  <SplideSlide key={recipe.id}>
-                  <Card>
-                    <p>{recipe.title}</p>
-                    <img src={recipe.image} alt={recipe.title} />
-                    <Gradient/>
-                  </Card>
-                  </SplideSlide>
-                );
-              })}
-              </Splide>
-            </Wrapper>
-            // each child in list should have unique key prop - warning!
+            <SplideSlide key={recipe.id}>
+              <Card>
+                <Link to={`/recipe/${recipe.id}`}>
+                  <p>{recipe.title}</p>
+                  <img src={recipe.image} alt={recipe.title} />
+                  <Gradient />
+                </Link>
+              </Card>
+            </SplideSlide>
           );
-        
-    
-
+        })}
+      </Splide>
+    </Wrapper>
+    // each child in list should have unique key prop - warning!
+  );
 };
 
 const Wrapper = styled.div`
@@ -115,6 +115,6 @@ const Gradient = styled.div`
   z-index: 3;
   postion: absolute;
   width: 100%;
-  height:100%;
-  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5));
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;

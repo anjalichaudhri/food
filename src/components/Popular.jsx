@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import '@splidejs/splide/css';
+import { Link } from "react-router-dom";
+// update for navigating to recipe details make each card as links
 export const Popular = () => {
   //first -variable , second - function that allows you to modify it. third - initial state ie kind of date '' or {} or [].
   const [popular, setPopular] = useState([]);
@@ -58,9 +60,11 @@ export const Popular = () => {
                 return (
                   <SplideSlide key={recipe.id}>
                   <Card>
+                    <Link to={`/recipe/${recipe.id}`}>
                     <p>{recipe.title}</p>
                     <img src={recipe.image} alt={recipe.title} />
                     <Gradient/>
+                    </Link>
                   </Card>
                   </SplideSlide>
                 );

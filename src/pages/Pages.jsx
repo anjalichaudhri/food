@@ -2,6 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./Home";
 import { Cuisine } from "./Cuisine";
+import { Searched } from "../components/Searched";
+import { Recipe } from "./Recipe";
+import { PageNotFound } from "./PageNotFound";
 /** steps to specify routes:
  * import routes and route
  * for intial path use / as path in route and provide component name in element attribute in route
@@ -16,6 +19,9 @@ export const Pages = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/cuisine/:type" element={<Cuisine />} />
+      <Route path="/searched/:search" element={<Searched/>}/>
+      <Route path="/recipe/:name" element={<Recipe/>}/>
+      <Route path="*" element={PageNotFound}/>
     </Routes>
   );
 };
